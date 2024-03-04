@@ -44,7 +44,7 @@ export class IntroView {
         return __awaiter(this, void 0, void 0, function* () {
             setTimeout(() => {
                 this.canSkip = true;
-            }, 1000);
+            }, 3333);
             return new Promise((resolve) => {
                 let animationInterval = null;
                 const runAnimation = () => {

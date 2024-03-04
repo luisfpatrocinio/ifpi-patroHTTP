@@ -40,7 +40,7 @@ export class IntroView implements View {
 
         setTimeout( ()=> {
             this.canSkip = true;
-        }, 1000);
+        }, 3333);
 
         return new Promise((resolve) => {
             let animationInterval: NodeJS.Timeout | null = null;
