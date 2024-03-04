@@ -13,7 +13,7 @@ Alguns sites recomendados para utilizar e testar requisições HTTP:
 
 ## Bibliotecas utilizadas
 - **[Got](https://www.npmjs.com/package/got)**: Uma biblioteca JavaScript para fazer requisições HTTP, conhecida por sua simplicidade e eficiência. 
-- - **[Chalk](https://github.com/chalk/chalk)**: Uma biblioteca para estilizar a saída do terminal com cores e estilos, tornando-a mais legível e atraente.
+- **[Chalk](https://github.com/chalk/chalk)**: Uma biblioteca para estilizar a saída do terminal com cores e estilos, tornando-a mais legível e atraente.
 
 ## Sobre o Projeto
 Este projeto foi desenvolvido como parte da disciplina de Programação para Internet do curso de Tecnólogo em Análise e Desenvolvimento de Sistemas do Instituto Federal de Educação, Ciência e Tecnologia do Piauí (IFPI), sob a orientação do professor Ely Miranda.
