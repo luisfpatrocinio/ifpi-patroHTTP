@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import { cursorTo } from "readline";
 import { question } from 'readline-sync';
 import { getColor, setColor } from '../main.js';
+// Paleta utilizada: https://lospec.com/palette-list/sage57
 export function clearTerminal() {
     // Limpar terminal.
     console.clear();
