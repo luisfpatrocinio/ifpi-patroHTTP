@@ -72,6 +72,8 @@ export function getRows() {
     return process.stdout.rows;
 }
 export function enterToContinue() {
+    console.log();
+    showText(chalk.inverse("[ENTER]"), getColumns() / 2 - 4);
     let txt = question("", { hideEchoBack: true, mask: '' });
 }
 export function showCenteredText(text) {
@@ -105,4 +107,9 @@ export function introText(step) {
     showCenteredText("IFPI - Análise e Desenvolvimento de Sistemas");
     showCenteredText("Março - 2024");
     // enterToContinue();
+}
+export function showHeader(header) {
+    horizontalLine();
+    showCenteredText(header);
+    horizontalLine();
 }

@@ -94,6 +94,8 @@ export function getRows(): number {
 }
 
 export function enterToContinue() {
+    console.log();
+    showText(chalk.inverse("[ENTER]"), getColumns()/2 - 4);
     let txt = question("", {hideEchoBack: true, mask: ''});
 }
 
@@ -134,4 +136,10 @@ export function introText(step: number) : void {
     
 
     // enterToContinue();
+}
+
+export function showHeader(header: string) : void {
+    horizontalLine();
+    showCenteredText(header);
+    horizontalLine();
 }

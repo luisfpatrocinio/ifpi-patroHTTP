@@ -7,14 +7,20 @@ export class App {
     private viewStack: Stack<View> = new Stack<View>();
 
     // Iniciar aplicação
-    public run(): void {
+    public async run(): Promise<void> {
         this.viewStack.push(new MenuView());
         this.viewStack.push(new IntroView());
+
+        // Execução normal da aplicação.
         while (!this.viewStack.isEmpty()) {
             const view = this.viewStack.peek();
-            view.show();
+            await view.show();
+            this.viewStack.pop();
         }
 
-        // console.log("Fim da aplicação.");
+        // Limpar terminal
+        clearTerminal();
+
+        console.log("Fim da aplicação.");
     }
 }

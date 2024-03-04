@@ -1,55 +1,106 @@
 import { cursorTo } from "readline";
-import { getInput } from "./input.js";
-import { clearView, enterToContinue, getColumns, introText, showText } from "./viewUtils.js";
+import { clearTerminal, clearView, enterToContinue, getColumns, horizontalLine, introText, showCenteredText, showText } from "./viewUtils.js";
+import { question } from "readline-sync";
+import { testGot } from "./httpUtils.js";
 
 export interface View {
     show(): void;
 }
 
 export class MenuView implements View {
+    private canSkip: boolean = false;
+
     public async show(): Promise<void> {
-        // clearView();
-        showText("Bem vindo ao programa.");
+        clearView();
+        console.log();
+        horizontalLine();
+        showCenteredText("Exercício 01 - Requisições HTTP");
+        horizontalLine();
+
+        return new Promise(async (resolve) => {
+            showText("Insira a URL que deseja consultar.");
+            console.log();
+            cursorTo(process.stdout, 1);
+            const url = question("URL: ");
+            console.log();
+
+            await testGot(url);
+
+            enterToContinue();
+            resolve();
+        });
     }
 }
 
 export class IntroView implements View {
-    private texto: string = "";
-
     private i: number = 0;
     private canSkip: boolean = false;
 
     public async show(): Promise<void> {
-        await new Promise<void>(resolve => {
-            setTimeout(() => {
+
+        setTimeout( ()=> {
+            this.canSkip = true;
+        }, 1000);
+
+        return new Promise((resolve) => {
+            let animationInterval: NodeJS.Timeout | null = null;
+
+            const runAnimation = () => {
                 clearView();
                 introText(this.i);
                 this.i++;
                 this.i = this.i % 6;
-
                 cursorTo(process.stdout, getColumns()/2);
-                
+
                 if (this.canSkip) {
                     console.log();
                     cursorTo(process.stdout, getColumns()/2 - 6);
                     process.stdout.write('PRESS ENTER');
                 }
-                
-                setTimeout(() => {
-                    // Encerrar animação
-                    this.canSkip = true;                    
 
-                    // this.canSkip = true;
-                }, 3000);
-                
-                // Enquanto não tiver encerrado, continuar exibindo.
-                if (!this.canSkip) {
-                    this.show();
-                } else {
-                // Terminou a animação, sair ao apertar Enter.
-                    enterToContinue();
+                if (this.canSkip) {
+                    if (animationInterval) {
+                        clearInterval(animationInterval);
+                    }
+                    resolve();
                 }
-            }, 168);
-        });        
+            }
+
+            // Atualizar o estado da animação e iniciar a próxima etapa
+            const updateAnimation = () => {
+                runAnimation();
+            };
+            
+            // Iniciar a animação inicial
+            animationInterval = setInterval(updateAnimation, 168);
+
+            // Permitir que o usuário pule a animação ao pressionar Enter
+            process.stdin.once('keypress', (str, key) => {
+                if (key.name === 'return') {
+                    this.canSkip = true;
+                    if (animationInterval) {
+                        clearInterval(animationInterval);
+                    }
+                    updateAnimation();
+                }
+            });
+            
+        });
+
+        setTimeout(() => {
+            this.canSkip = true;                    
+        }, 1000);
+
+        setTimeout(() => {
+            
+            // Enquanto não tiver encerrado, continuar exibindo.
+            if (!this.canSkip) {
+                this.show();
+            } else {
+            // Terminou a animação, sair ao apertar Enter.
+                enterToContinue();
+                clearTerminal();
+            }
+        }, 168);
     }
 }

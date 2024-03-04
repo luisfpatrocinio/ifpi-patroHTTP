@@ -8,25 +8,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { cursorTo } from "readline";
-import { clearView, enterToContinue, getColumns, introText, showText } from "./viewUtils.js";
+import { clearTerminal, clearView, enterToContinue, getColumns, horizontalLine, introText, showCenteredText, showText } from "./viewUtils.js";
+import { question } from "readline-sync";
+import { testGot } from "./httpUtils.js";
 export class MenuView {
+    constructor() {
+        this.canSkip = false;
+    }
     show() {
         return __awaiter(this, void 0, void 0, function* () {
-            // clearView();
-            showText("Bem vindo ao programa.");
+            clearView();
+            console.log();
+            horizontalLine();
+            showCenteredText("Exercício 01 - Requisições HTTP");
+            horizontalLine();
+            return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
+                showText("Insira a URL que deseja consultar.");
+                console.log();
+                cursorTo(process.stdout, 1);
+                const url = question("URL: ");
+                console.log();
+                yield testGot(url);
+                enterToContinue();
+                resolve();
+            }));
         });
     }
 }
 export class IntroView {
     constructor() {
-        this.texto = "";
         this.i = 0;
         this.canSkip = false;
     }
     show() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield new Promise(resolve => {
-                setTimeout(() => {
+            setTimeout(() => {
+                this.canSkip = true;
+            }, 1000);
+            return new Promise((resolve) => {
+                let animationInterval = null;
+                const runAnimation = () => {
                     clearView();
                     introText(this.i);
                     this.i++;
@@ -37,21 +58,44 @@ export class IntroView {
                         cursorTo(process.stdout, getColumns() / 2 - 6);
                         process.stdout.write('PRESS ENTER');
                     }
-                    setTimeout(() => {
-                        // Encerrar animação
+                    if (this.canSkip) {
+                        if (animationInterval) {
+                            clearInterval(animationInterval);
+                        }
+                        resolve();
+                    }
+                };
+                // Atualizar o estado da animação e iniciar a próxima etapa
+                const updateAnimation = () => {
+                    runAnimation();
+                };
+                // Iniciar a animação inicial
+                animationInterval = setInterval(updateAnimation, 168);
+                // Permitir que o usuário pule a animação ao pressionar Enter
+                process.stdin.once('keypress', (str, key) => {
+                    if (key.name === 'return') {
                         this.canSkip = true;
-                        // this.canSkip = true;
-                    }, 3000);
-                    // Enquanto não tiver encerrado, continuar exibindo.
-                    if (!this.canSkip) {
-                        this.show();
+                        if (animationInterval) {
+                            clearInterval(animationInterval);
+                        }
+                        updateAnimation();
                     }
-                    else {
-                        // Terminou a animação, sair ao apertar Enter.
-                        enterToContinue();
-                    }
-                }, 168);
+                });
             });
+            setTimeout(() => {
+                this.canSkip = true;
+            }, 1000);
+            setTimeout(() => {
+                // Enquanto não tiver encerrado, continuar exibindo.
+                if (!this.canSkip) {
+                    this.show();
+                }
+                else {
+                    // Terminou a animação, sair ao apertar Enter.
+                    enterToContinue();
+                    clearTerminal();
+                }
+            }, 168);
         });
     }
 }
