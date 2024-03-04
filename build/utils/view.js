@@ -8,10 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { cursorTo } from "readline";
-import { clearTerminal, clearView, enterToContinue, getColumns, horizontalLine, introText, showCenteredText, showText } from "./viewUtils.js";
+import { clearView, enterToContinue, getColumns, getRows, horizontalLine, introText, showCenteredText, showText } from "./viewUtils.js";
 import { question } from "readline-sync";
 import { testGot } from "./httpUtils.js";
-export class MenuView {
+export class GetMethodView {
     constructor() {
         this.canSkip = false;
     }
@@ -20,7 +20,7 @@ export class MenuView {
             clearView();
             console.log();
             horizontalLine();
-            showCenteredText("Exercício 01 - Requisições HTTP");
+            showCenteredText("Requisição GET");
             horizontalLine();
             return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
                 showText("Insira a URL que deseja consultar.");
@@ -52,7 +52,7 @@ export class IntroView {
                     introText(this.i);
                     this.i++;
                     this.i = this.i % 6;
-                    cursorTo(process.stdout, getColumns() / 2);
+                    cursorTo(process.stdout, getColumns() - 2, getRows() - 4);
                     if (this.canSkip) {
                         console.log();
                         cursorTo(process.stdout, getColumns() / 2 - 6);
@@ -82,20 +82,6 @@ export class IntroView {
                     }
                 });
             });
-            setTimeout(() => {
-                this.canSkip = true;
-            }, 1000);
-            setTimeout(() => {
-                // Enquanto não tiver encerrado, continuar exibindo.
-                if (!this.canSkip) {
-                    this.show();
-                }
-                else {
-                    // Terminou a animação, sair ao apertar Enter.
-                    enterToContinue();
-                    clearTerminal();
-                }
-            }, 168);
         });
     }
 }

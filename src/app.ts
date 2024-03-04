@@ -1,6 +1,6 @@
 import { Stack } from "./utils/stack.js";
-import { IntroView, MenuView, View } from "./utils/view.js";
-import { clearTerminal, introText } from "./utils/viewUtils.js";
+import { GetMethodView, IntroView, View } from "./utils/view.js";
+import { clearTerminal } from "./utils/viewUtils.js";
 
 export class App {
     // Stack de funções
@@ -8,7 +8,7 @@ export class App {
 
     // Iniciar aplicação
     public async run(): Promise<void> {
-        this.viewStack.push(new MenuView());
+        this.viewStack.push(new GetMethodView());
         this.viewStack.push(new IntroView());
 
         // Execução normal da aplicação.

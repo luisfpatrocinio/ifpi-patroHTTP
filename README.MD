@@ -1,6 +1,8 @@
 # Requisições HTTP
 Este projeto foi desenvolvido como parte de uma atividade da disciplina de Programação para Internet. Ele consiste em um programa que utiliza a biblioteca Got para realizar requisições HTTP e exibir de forma clara e organizada o cabeçalho e corpo da resposta, juntamente com informações importantes como tempo de resposta e tamanho do corpo.
 
+![Tela de Título](https://github.com/luisfpatrocinio/ifpi-patroHTTP/blob/main/patrohttp_title.gif)
+
 ## Como utilizar
 Para utilizar o projeto, basta executar o script `patrohttp.bat`. Isso iniciará o programa e permitirá que você faça suas próprias requisições HTTP de forma rápida e simples.
 

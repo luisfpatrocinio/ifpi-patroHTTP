@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Stack } from "./utils/stack.js";
-import { IntroView, MenuView } from "./utils/view.js";
+import { GetMethodView, IntroView } from "./utils/view.js";
 import { clearTerminal } from "./utils/viewUtils.js";
 export class App {
     constructor() {
@@ -18,7 +18,7 @@ export class App {
     // Iniciar aplicação
     run() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.viewStack.push(new MenuView());
+            this.viewStack.push(new GetMethodView());
             this.viewStack.push(new IntroView());
             // Execução normal da aplicação.
             while (!this.viewStack.isEmpty()) {

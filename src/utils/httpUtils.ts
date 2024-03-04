@@ -1,5 +1,5 @@
 import { got, Response } from "got";
-import { clearView, horizontalLine, showCenteredText, showHeader, showText } from "./viewUtils.js";
+import { clearView, enterToContinue, horizontalLine, showCenteredText, showHeader, showText } from "./viewUtils.js";
 
 export async function testGot(testURL: string) {
     let desiredURL: string = testURL;
@@ -7,10 +7,14 @@ export async function testGot(testURL: string) {
         desiredURL = 'https://jsonplaceholder.typicode.com/posts/1'
         showText(`URL não informada. Utilizando URL padrão:`);
         showText(`${desiredURL}`);
+        enterToContinue();
     }
 
     try {
+        showText("Realizando requisição...");
         const response: Response = await got(desiredURL);
+        showText("Requisição realizada com sucesso.");
+        enterToContinue();
         clearView();
         console.log();
         horizontalLine();

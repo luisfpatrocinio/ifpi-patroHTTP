@@ -1,5 +1,5 @@
 import { cursorTo } from "readline";
-import { clearTerminal, clearView, enterToContinue, getColumns, horizontalLine, introText, showCenteredText, showText } from "./viewUtils.js";
+import { clearTerminal, clearView, enterToContinue, getColumns, getRows, horizontalLine, introText, showCenteredText, showText } from "./viewUtils.js";
 import { question } from "readline-sync";
 import { testGot } from "./httpUtils.js";
 
@@ -7,14 +7,14 @@ export interface View {
     show(): void;
 }
 
-export class MenuView implements View {
+export class GetMethodView implements View {
     private canSkip: boolean = false;
 
     public async show(): Promise<void> {
         clearView();
         console.log();
         horizontalLine();
-        showCenteredText("Exercício 01 - Requisições HTTP");
+        showCenteredText("Requisição GET");
         horizontalLine();
 
         return new Promise(async (resolve) => {
@@ -50,7 +50,7 @@ export class IntroView implements View {
                 introText(this.i);
                 this.i++;
                 this.i = this.i % 6;
-                cursorTo(process.stdout, getColumns()/2);
+                cursorTo(process.stdout, getColumns() - 2, getRows() - 4);
 
                 if (this.canSkip) {
                     console.log();
@@ -86,21 +86,5 @@ export class IntroView implements View {
             });
             
         });
-
-        setTimeout(() => {
-            this.canSkip = true;                    
-        }, 1000);
-
-        setTimeout(() => {
-            
-            // Enquanto não tiver encerrado, continuar exibindo.
-            if (!this.canSkip) {
-                this.show();
-            } else {
-            // Terminou a animação, sair ao apertar Enter.
-                enterToContinue();
-                clearTerminal();
-            }
-        }, 168);
     }
 }

@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { got } from "got";
-import { clearView, horizontalLine, showCenteredText, showHeader, showText } from "./viewUtils.js";
+import { clearView, enterToContinue, horizontalLine, showCenteredText, showHeader, showText } from "./viewUtils.js";
 export function testGot(testURL) {
     return __awaiter(this, void 0, void 0, function* () {
         let desiredURL = testURL;
@@ -16,9 +16,13 @@ export function testGot(testURL) {
             desiredURL = 'https://jsonplaceholder.typicode.com/posts/1';
             showText(`URL não informada. Utilizando URL padrão:`);
             showText(`${desiredURL}`);
+            enterToContinue();
         }
         try {
+            showText("Realizando requisição...");
             const response = yield got(desiredURL);
+            showText("Requisição realizada com sucesso.");
+            enterToContinue();
             clearView();
             console.log();
             horizontalLine();
