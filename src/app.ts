@@ -1,5 +1,5 @@
 import { Stack } from "./utils/stack.js";
-import { GetMethodView, IntroView, View } from "./utils/view.js";
+import { GetMethodView, IntroView, MainMenu, View } from "./utils/view.js";
 import { clearTerminal } from "./utils/viewUtils.js";
 
 export class App {
@@ -8,14 +8,13 @@ export class App {
 
     // Iniciar aplicação
     public async run(): Promise<void> {
-        this.viewStack.push(new GetMethodView());
+        this.viewStack.push(new MainMenu(this.viewStack));
         this.viewStack.push(new IntroView());
 
         // Execução normal da aplicação.
         while (!this.viewStack.isEmpty()) {
-            const view = this.viewStack.peek();
+            const view = this.viewStack.pop();
             await view.show();
-            this.viewStack.pop();
         }
 
         // Limpar terminal
