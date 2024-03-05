@@ -8,63 +8,72 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { cursorTo } from "readline";
-import { clearView, enterToContinue, getColumns, getRows, horizontalLine, introText, showCenteredText, showHeader, showText } from "./viewUtils.js";
+import { clearTerminal, clearView, enterToContinue, getColumns, getRows, horizontalLine, introText, showCenteredText, showHeader, showText } from "./viewUtils.js";
 import { question } from "readline-sync";
 import { testGot } from "./httpUtils.js";
-// export class FarewellView implements View {
-//     canSkip: boolean = false;
-//     public async show(): Promise<void> {
-//         clearView();
-//         for (let i = 0; i < 6; i++) {
-//             console.log();
-//         }
-//         showCenteredText("Fim.");
-//         setTimeout( ()=> {
-//             this.canSkip = true;
-//         }, 3333);
-//         return new Promise((resolve) => {
-//             if (this.canSkip) {
-//                 process.exit();
-//                 resolve();
-//             }
-//         });
-//     }
-// }
-export class MainMenu {
+export class FarewellView {
+    constructor() {
+        this.canSkip = false;
+    }
     show() {
-        clearView();
-        showHeader("Menu Principal");
-        showText("1 - Requisição GET");
-        showText("2 - Fazer download de imagem");
-        showText("3 - Mostrar links de página");
-        showText("4 - Pesquisar palavras na página");
-        showText("0 - Sair");
-        let option = -1;
-        while (option < 0 || option > 4) {
-            cursorTo(process.stdout, 1);
-            option = Number(question("Opção: "));
-            console.log();
-        }
-        switch (option) {
-            case 1:
-                console.log("Requisição GET");
-                // Adicionar a view de requisição GET no topo da Pilha do App
-                // COMO ACESSAR A PILHA DO APP? >>> App.viewStack.push(new GetMethodView());
-                break;
-            case 2:
-                console.log("Fazer download de imagem");
-                break;
-            case 3:
-                console.log("Mostrar links de página");
-                break;
-            case 4:
-                console.log("Pesquisar palavras na página");
-                break;
-            case 0:
+        return __awaiter(this, void 0, void 0, function* () {
+            clearView();
+            for (let i = 0; i < 6; i++) {
                 console.log();
-                // new FarewellView().show();
-                break;
-        }
+            }
+            showCenteredText("Fim.");
+            setTimeout(() => {
+                this.canSkip = true;
+            }, 5000);
+            return new Promise((resolve) => {
+                if (this.canSkip) {
+                    clearTerminal();
+                    resolve();
+                }
+            });
+        });
+    }
+}
+export class MainMenu {
+    constructor(viewStack) {
+        // Captura a referência da Stack de Views
+        this.viewStack = viewStack;
+    }
+    show() {
+        return __awaiter(this, void 0, void 0, function* () {
+            clearView();
+            showHeader("Menu Principal");
+            showText("1 - Requisição GET");
+            showText("2 - Fazer download de imagem");
+            showText("3 - Mostrar links de página");
+            showText("4 - Pesquisar palavras na página");
+            showText("0 - Sair");
+            let option = -1;
+            while (option < 0 || option > 4) {
+                cursorTo(process.stdout, 1);
+                option = Number(question("Opção: "));
+                console.log();
+            }
+            switch (option) {
+                case 1:
+                    console.log("Requisição GET");
+                    this.viewStack.push(new GetMethodView());
+                    break;
+                case 2:
+                    console.log("Fazer download de imagem");
+                    break;
+                case 3:
+                    console.log("Mostrar links de página");
+                    break;
+                case 4:
+                    console.log("Pesquisar palavras na página");
+                    break;
+                case 0:
+                    console.log();
+                    this.viewStack.push(new FarewellView());
+                    break;
+            }
+        });
     }
 }
 export class GetMethodView {
@@ -93,7 +102,7 @@ export class GetMethodView {
 }
 export class IntroView {
     constructor() {
-        this.i = 0;
+        this.i = 0; // Frame atual
         this.canSkip = false;
     }
     show() {

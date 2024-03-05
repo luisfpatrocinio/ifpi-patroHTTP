@@ -2,37 +2,43 @@ import { cursorTo } from "readline";
 import { clearTerminal, clearView, enterToContinue, getColumns, getRows, horizontalLine, introText, showCenteredText, showHeader, showText } from "./viewUtils.js";
 import { question } from "readline-sync";
 import { testGot } from "./httpUtils.js";
-import { Console } from "console";
+import { Stack } from "./stack.js";
 
 export interface View {
     show(): void;
 }
 
-// export class FarewellView implements View {
-//     canSkip: boolean = false;
+export class FarewellView implements View {
+    canSkip: boolean = false;
     
-//     public async show(): Promise<void> {
-//         clearView();
-//         for (let i = 0; i < 6; i++) {
-//             console.log();
-//         }
-//         showCenteredText("Fim.");
+    public async show(): Promise<void> {
+        clearView();
+        for (let i = 0; i < 6; i++) {
+            console.log();
+        }
+        showCenteredText("Fim.");
 
-//         setTimeout( ()=> {
-//             this.canSkip = true;
-//         }, 3333);
+        setTimeout( ()=> {
+            this.canSkip = true;
+        }, 5000);
 
-//         return new Promise((resolve) => {
-//             if (this.canSkip) {
-//                 process.exit();
-//                 resolve();
-//             }
-//         });
-//     }
-// }
+        return new Promise((resolve) => {
+            if (this.canSkip) {
+                clearTerminal();
+                resolve();
+            }
+        });
+    }
+}
 
 export class MainMenu implements View {
-    show(): void {
+    private viewStack: Stack<View>;
+    constructor(viewStack: Stack<View>) {
+        // Captura a referência da Stack de Views
+        this.viewStack = viewStack;
+    }
+
+    public async show(): Promise<void> {
         clearView();
         showHeader("Menu Principal");
         showText("1 - Requisição GET");
@@ -51,8 +57,7 @@ export class MainMenu implements View {
         switch (option) {
             case 1:
                 console.log("Requisição GET")
-                // Adicionar a view de requisição GET no topo da Pilha do App
-                // COMO ACESSAR A PILHA DO APP? >>> App.viewStack.push(new GetMethodView());
+                this.viewStack.push(new GetMethodView());
                 break;
             case 2:
                 console.log("Fazer download de imagem");
@@ -65,7 +70,7 @@ export class MainMenu implements View {
                 break;
             case 0:
                 console.log()
-                // new FarewellView().show();
+                this.viewStack.push(new FarewellView());
                 break;
         }
     }
@@ -97,7 +102,7 @@ export class GetMethodView implements View {
 }
 
 export class IntroView implements View {
-    private i: number = 0;
+    private i: number = 0;  // Frame atual
     private canSkip: boolean = false;
 
     public async show(): Promise<void> {
