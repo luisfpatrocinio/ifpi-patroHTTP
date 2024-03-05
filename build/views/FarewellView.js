@@ -7,28 +7,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Stack } from "./utils/stack.js";
-import { IntroView } from "./views/IntroView.js";
-import { MainMenu } from "./views/MainMenu.js";
-import { clearTerminal } from "./views/viewUtils.js";
-export class App {
+import { clearTerminal, clearView, showCenteredText } from "./viewUtils.js";
+export class FarewellView {
     constructor() {
-        // Stack de funções
-        this.viewStack = new Stack();
+        this.canSkip = false;
     }
-    // Iniciar aplicação
-    run() {
+    show() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.viewStack.push(new MainMenu(this.viewStack));
-            this.viewStack.push(new IntroView());
-            // Execução normal da aplicação.
-            while (!this.viewStack.isEmpty()) {
-                const view = this.viewStack.pop();
-                yield view.show();
+            clearView();
+            for (let i = 0; i < 6; i++) {
+                console.log();
             }
-            // Limpar terminal
-            clearTerminal();
-            console.log("Fim da aplicação.");
+            showCenteredText("Fim.");
+            setTimeout(() => {
+                this.canSkip = true;
+            }, 5000);
+            return new Promise((resolve) => {
+                if (this.canSkip) {
+                    clearTerminal();
+                    resolve();
+                }
+            });
         });
     }
 }

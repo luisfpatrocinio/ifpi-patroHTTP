@@ -1,6 +1,8 @@
 import { Stack } from "./utils/stack.js";
-import { GetMethodView, IntroView, MainMenu, View } from "./utils/view.js";
-import { clearTerminal } from "./utils/viewUtils.js";
+import { IntroView } from "./views/IntroView.js";
+import { MainMenu } from "./views/MainMenu.js";
+import { View } from "./views/view.js";
+import { clearTerminal } from "./views/viewUtils.js";
 
 export class App {
     // Stack de funções
@@ -19,7 +21,6 @@ export class App {
 
         // Limpar terminal
         clearTerminal();
-
         console.log("Fim da aplicação.");
     }
 }
