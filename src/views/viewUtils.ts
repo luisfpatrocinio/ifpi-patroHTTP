@@ -145,3 +145,7 @@ export function showHeader(header: string) : void {
     showCenteredText(header);
     horizontalLine();
 }
+
+export function whiteLine() {
+    
+}
