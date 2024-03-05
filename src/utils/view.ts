@@ -1,10 +1,74 @@
 import { cursorTo } from "readline";
-import { clearTerminal, clearView, enterToContinue, getColumns, getRows, horizontalLine, introText, showCenteredText, showText } from "./viewUtils.js";
+import { clearTerminal, clearView, enterToContinue, getColumns, getRows, horizontalLine, introText, showCenteredText, showHeader, showText } from "./viewUtils.js";
 import { question } from "readline-sync";
 import { testGot } from "./httpUtils.js";
+import { Console } from "console";
 
 export interface View {
     show(): void;
+}
+
+// export class FarewellView implements View {
+//     canSkip: boolean = false;
+    
+//     public async show(): Promise<void> {
+//         clearView();
+//         for (let i = 0; i < 6; i++) {
+//             console.log();
+//         }
+//         showCenteredText("Fim.");
+
+//         setTimeout( ()=> {
+//             this.canSkip = true;
+//         }, 3333);
+
+//         return new Promise((resolve) => {
+//             if (this.canSkip) {
+//                 process.exit();
+//                 resolve();
+//             }
+//         });
+//     }
+// }
+
+export class MainMenu implements View {
+    show(): void {
+        clearView();
+        showHeader("Menu Principal");
+        showText("1 - Requisição GET");
+        showText("2 - Fazer download de imagem");
+        showText("3 - Mostrar links de página");
+        showText("4 - Pesquisar palavras na página");
+        showText("0 - Sair");
+
+        let option = -1;
+        while (option < 0 || option > 4) {
+            cursorTo(process.stdout, 1);
+            option = Number(question("Opção: "));
+            console.log();
+        }
+
+        switch (option) {
+            case 1:
+                console.log("Requisição GET")
+                // Adicionar a view de requisição GET no topo da Pilha do App
+                // COMO ACESSAR A PILHA DO APP? >>> App.viewStack.push(new GetMethodView());
+                break;
+            case 2:
+                console.log("Fazer download de imagem");
+                break;
+            case 3:
+                console.log("Mostrar links de página");
+                break;
+            case 4:
+                console.log("Pesquisar palavras na página");
+                break;
+            case 0:
+                console.log()
+                // new FarewellView().show();
+                break;
+        }
+    }
 }
 
 export class GetMethodView implements View {
