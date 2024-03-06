@@ -1,21 +1,19 @@
 import { cursorTo } from "readline";
-import { clearView, showHeader, showText } from "./viewUtils.js";
+import { clearView, showCenteredText, showText } from "./viewUtils.js";
 import { question } from "readline-sync";
 import { GetMethodView } from "./GetMethodView.js";
 import { FarewellView } from "./FarewellView.js";
 import { Stack } from "../utils/stack.js";
 import { View } from "./view.js";
+import { ImageDownloadView } from "./ImageDownloadView.js";
+import { getNumberInput } from "../utils/input.js";
 
-export class MainMenu implements View {
-    private viewStack: Stack<View>;
-    constructor(viewStack: Stack<View>) {
-        // Captura a referência da Stack de Views
-        this.viewStack = viewStack;
-    }
+export class MainMenu extends View {
+    viewName = "Menu Principal";
 
     public async show(): Promise<void> {
         clearView();
-        showHeader("Menu Principal");
+        this.showHeader();
         showText("1 - Requisição GET");
         showText("2 - Fazer download de imagem");
         showText("3 - Mostrar links de página");
@@ -24,24 +22,16 @@ export class MainMenu implements View {
 
         let option = -1;
         while (option < 0 || option > 4) {
-            showText("Opção: ", 1)
-            process.stdout.moveCursor(9, -1);
-            let input = "";
-            while (input === "") {
-                input = question("");
-                process.stdout.moveCursor(9, -1);
-            }
-            option = Number(input);
-            console.log();
+            option = getNumberInput();
+            process.stdout.moveCursor(0, -1);
         }
 
         switch (option) {
             case 1:
-                console.log("Requisição GET")
                 this.viewStack.push(new GetMethodView());
                 break;
             case 2:
-                console.log("Fazer download de imagem");
+                this.viewStack.push(new ImageDownloadView());
                 break;
             case 3:
                 console.log("Mostrar links de página");

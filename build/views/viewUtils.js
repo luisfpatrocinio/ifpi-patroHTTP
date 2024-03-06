@@ -109,10 +109,10 @@ export function introText(step) {
     showCenteredText("Março - 2024");
     // enterToContinue();
 }
-export function showHeader(header) {
-    horizontalLine();
-    showCenteredText(header);
-    horizontalLine();
-}
 export function whiteLine() {
+}
+export function showMiniHeader(text) {
+    horizontalLine();
+    showCenteredText(text);
+    horizontalLine();
 }

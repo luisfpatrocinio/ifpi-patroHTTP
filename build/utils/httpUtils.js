@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { got } from "got";
-import { clearView, enterToContinue, getColumns, horizontalLine, showCenteredText, showHeader, showText } from "../views/viewUtils.js";
+import { clearView, enterToContinue, getColumns, horizontalLine, showCenteredText, showMiniHeader, showText } from "../views/viewUtils.js";
 import chalk from "chalk";
 export function testGot(testURL) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -25,7 +25,7 @@ export function testGot(testURL) {
         try {
             // Realizar requisição:
             clearView();
-            showHeader("Requisição GET");
+            showMiniHeader("Requisição GET");
             showText("URL: " + desiredURL);
             showText("Realizando requisição...");
             const response = yield got(desiredURL);
@@ -39,15 +39,16 @@ export function testGot(testURL) {
             showCenteredText(response.url);
             showCenteredText(`Status: ${response.statusCode} - ${response.statusMessage} | Tempo: ${response.timings.phases.total} ms | Tamanho: ${response.rawBody.length} bytes`);
             // Exibir Cabeçalhos
-            showHeader(`Cabeçalhos:`);
+            showMiniHeader(`Cabeçalhos:`);
             showResponseHeaders(response.headers);
             // Exibir Corpo da Resposta
-            showHeader('Corpo da Resposta:');
+            showMiniHeader('Corpo da Resposta:');
             showResponseBody(response);
             horizontalLine();
         }
         catch (error) {
             console.error('Error:', error.message);
+            enterToContinue();
         }
     });
 }

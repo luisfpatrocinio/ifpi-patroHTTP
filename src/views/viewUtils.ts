@@ -140,12 +140,12 @@ export function introText(step: number) : void {
     // enterToContinue();
 }
 
-export function showHeader(header: string) : void {
-    horizontalLine();
-    showCenteredText(header);
-    horizontalLine();
-}
-
 export function whiteLine() {
     
+}
+
+export function showMiniHeader(text: string) {
+    horizontalLine();
+    showCenteredText(text);
+    horizontalLine();
 }
