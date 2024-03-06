@@ -23,19 +23,16 @@ export class GetMethodView extends View {
             clearView();
             console.log();
             this.showHeader();
-            return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
-                showText("Insira a URL que deseja consultar.");
-                console.log();
-                showText("URL: ");
-                cursorTo(process.stdout, 6);
-                process.stdout.moveCursor(0, -1);
-                const url = question("");
-                console.log();
-                yield testGot(url);
-                enterToContinue();
-                this.removeMeFromStack();
-                resolve();
-            }));
+            showText("Insira a URL que deseja consultar.");
+            console.log();
+            showText("URL: ");
+            cursorTo(process.stdout, 6);
+            process.stdout.moveCursor(0, -1);
+            const url = question("");
+            console.log();
+            yield testGot(url);
+            enterToContinue();
+            this.removeMeFromStack();
         });
     }
 }

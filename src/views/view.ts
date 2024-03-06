@@ -1,5 +1,5 @@
 import { Stack } from "../utils/stack.js";
-import { horizontalLine, showCenteredText } from "./viewUtils.js";
+import { enterToContinue, horizontalLine, showCenteredText } from "./viewUtils.js";
 
 export abstract class View {
     public abstract viewName: string;

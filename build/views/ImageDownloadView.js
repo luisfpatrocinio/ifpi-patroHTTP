@@ -28,7 +28,10 @@ export class ImageDownloadView extends View {
                 let desiredUrl = question();
                 // Checar url vazia
                 if (desiredUrl === "") {
-                    console.log("URL inválida. A URL não pode ser vazia.");
+                    let color = getColor();
+                    setColor("#FF####");
+                    showText("URL inválida. A URL não pode ser vazia.");
+                    setColor(color);
                     desiredUrl = "https://www.w3.org/Graphics/PNG/nurbcup2si.png";
                     showText("Utilizando URL de teste: " + desiredUrl);
                 }
@@ -39,12 +42,10 @@ export class ImageDownloadView extends View {
                 // Checar se termina com .jpg ou .png
                 if (!desiredUrl.endsWith(".jpg") && !desiredUrl.endsWith(".png")) {
                     console.log("URL inválida. A URL deve terminar com .jpg ou .png");
-                    // return resolve();
+                    return resolve();
                 }
                 // // Fazer download da imagem
-                // await downloadImage(desiredUrl);
-                console.log("MOACIR");
-                enterToContinue();
+                yield downloadImage(desiredUrl);
                 // Mostrar imagem usando image-to-ascii
                 clearView();
                 horizontalLine();
@@ -60,11 +61,10 @@ export class ImageDownloadView extends View {
     }
 }
 import fs from "fs";
+import { getColor, setColor } from "../main.js";
 function downloadImage(desiredUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield got(desiredUrl, { responseType: "buffer" });
-        console.log("Diego");
-        enterToContinue();
         // Perguntar nome do arquivo:
         showText("Digite o nome do arquivo que deseja salvar: ");
         showText("Nome: ");

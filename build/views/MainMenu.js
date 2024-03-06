@@ -8,11 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { clearView, showText } from "./viewUtils.js";
-import { question } from "readline-sync";
 import { GetMethodView } from "./GetMethodView.js";
 import { FarewellView } from "./FarewellView.js";
 import { View } from "./view.js";
 import { ImageDownloadView } from "./ImageDownloadView.js";
+import { getNumberInput } from "../utils/input.js";
 export class MainMenu extends View {
     constructor() {
         super(...arguments);
@@ -29,23 +29,14 @@ export class MainMenu extends View {
             showText("0 - Sair");
             let option = -1;
             while (option < 0 || option > 4) {
-                showText("Opção: ", 1);
-                process.stdout.moveCursor(9, -1);
-                let input = "";
-                while (input === "") {
-                    input = question("");
-                    process.stdout.moveCursor(9, -1);
-                }
-                option = Number(input);
-                console.log();
+                option = getNumberInput();
+                process.stdout.moveCursor(0, -1);
             }
             switch (option) {
                 case 1:
-                    console.log("Requisição GET");
                     this.viewStack.push(new GetMethodView());
                     break;
                 case 2:
-                    console.log("Fazer download de imagem");
                     this.viewStack.push(new ImageDownloadView());
                     break;
                 case 3:

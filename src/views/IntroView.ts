@@ -1,17 +1,20 @@
 import { cursorTo } from "readline";
-import { clearView, getColumns, getRows, introText, showCenteredText } from "./viewUtils.js";
+import { clearView, enterToContinue, getColumns, getRows, introText, showCenteredText } from "./viewUtils.js";
 import { View } from "./view.js";
+import { MainMenu } from "./MainMenu.js";
 
 export class IntroView extends View {
     public viewName: string = "Introdução";
+    
     private i: number = 0;  // Frame atual
     private canSkip: boolean = false;
 
     public async show(): Promise<void> {
+        clearView();
 
         setTimeout( ()=> {
             this.canSkip = true;
-        }, 500);
+        }, 3000);
 
         return new Promise((resolve) => {
             let animationInterval: NodeJS.Timeout | null = null;
@@ -34,6 +37,7 @@ export class IntroView extends View {
                         clearInterval(animationInterval);
                     }
                     this.removeMeFromStack();
+                    this.viewStack.push(new MainMenu());
                     resolve();
                 }
             }
@@ -44,19 +48,12 @@ export class IntroView extends View {
             };
             
             // Iniciar a animação inicial
-            animationInterval = setInterval(updateAnimation, 168);
-
-            // Permitir que o usuário pule a animação ao pressionar Enter
-            process.stdin.once('keypress', (str, key) => {
-                if (key.name === 'return') {
-                    this.canSkip = true;
-                    if (animationInterval) {
-                        clearInterval(animationInterval);
-                    }
-                    updateAnimation();
-                }
-            });
-            
+            if (animationInterval == null) {
+                animationInterval = setInterval(updateAnimation, 168);
+            }
+        
         });
+
+        
     }
 }

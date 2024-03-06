@@ -14,7 +14,7 @@ export class FarewellView extends View {
 
         setTimeout( ()=> {
             this.canSkip = true;
-        }, 5000);
+        }, 500);
 
         return new Promise((resolve) => {
             if (this.canSkip) {
