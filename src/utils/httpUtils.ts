@@ -1,5 +1,5 @@
 import { got, Response } from "got";
-import { clearView, enterToContinue, getColumns, horizontalLine, showCenteredText, showHeader, showText } from "../views/viewUtils.js";
+import { clearView, enterToContinue, getColumns, horizontalLine, showCenteredText, showMiniHeader, showText } from "../views/viewUtils.js";
 import { IncomingHttpHeaders } from "http";
 import chalk from "chalk";
 
@@ -20,7 +20,7 @@ export async function testGot(testURL: string) {
     try {
         // Realizar requisição:
         clearView();
-        showHeader("Requisição GET");
+        showMiniHeader("Requisição GET");
         showText("URL: " + desiredURL);
         showText("Realizando requisição...");
         const response: Response = await got(desiredURL);
@@ -36,15 +36,16 @@ export async function testGot(testURL: string) {
         showCenteredText(`Status: ${response.statusCode} - ${response.statusMessage} | Tempo: ${response.timings.phases.total} ms | Tamanho: ${response.rawBody.length} bytes`);
 
         // Exibir Cabeçalhos
-        showHeader(`Cabeçalhos:`);
+        showMiniHeader(`Cabeçalhos:`);
         showResponseHeaders(response.headers);
 
         // Exibir Corpo da Resposta
-        showHeader('Corpo da Resposta:');
+        showMiniHeader('Corpo da Resposta:');
         showResponseBody(response);
         horizontalLine();
     } catch (error: any) {
         console.error('Error:', error.message);
+        enterToContinue();
     }
 }
 

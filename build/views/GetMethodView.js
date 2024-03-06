@@ -8,20 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { cursorTo } from "readline";
-import { clearView, enterToContinue, horizontalLine, showCenteredText, showText } from "./viewUtils.js";
+import { View } from "./view.js";
+import { clearView, enterToContinue, showText } from "./viewUtils.js";
 import { question } from "readline-sync";
 import { testGot } from "../utils/httpUtils.js";
-export class GetMethodView {
+export class GetMethodView extends View {
     constructor() {
+        super(...arguments);
+        this.viewName = "Requisição GET";
         this.canSkip = false;
     }
     show() {
         return __awaiter(this, void 0, void 0, function* () {
             clearView();
             console.log();
-            horizontalLine();
-            showCenteredText("Requisição GET");
-            horizontalLine();
+            this.showHeader();
             return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
                 showText("Insira a URL que deseja consultar.");
                 console.log();
@@ -32,6 +33,7 @@ export class GetMethodView {
                 console.log();
                 yield testGot(url);
                 enterToContinue();
+                this.removeMeFromStack();
                 resolve();
             }));
         });

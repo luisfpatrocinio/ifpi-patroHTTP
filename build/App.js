@@ -19,11 +19,12 @@ export class App {
     // Iniciar aplicação
     run() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.viewStack.push(new MainMenu(this.viewStack));
+            this.viewStack.push(new MainMenu());
             this.viewStack.push(new IntroView());
             // Execução normal da aplicação.
             while (!this.viewStack.isEmpty()) {
-                const view = this.viewStack.pop();
+                const view = this.viewStack.peek();
+                view.viewStack = this.viewStack;
                 yield view.show();
             }
             // Limpar terminal

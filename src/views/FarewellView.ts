@@ -1,7 +1,8 @@
 import { View } from "./view.js";
 import { clearTerminal, clearView, showCenteredText } from "./viewUtils.js";
 
-export class FarewellView implements View {
+export class FarewellView extends View {
+    public viewName = "Fim";
     canSkip: boolean = false;
     
     public async show(): Promise<void> {

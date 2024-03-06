@@ -7,9 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { View } from "./view.js";
 import { clearTerminal, clearView, showCenteredText } from "./viewUtils.js";
-export class FarewellView {
+export class FarewellView extends View {
     constructor() {
+        super(...arguments);
+        this.viewName = "Fim";
         this.canSkip = false;
     }
     show() {

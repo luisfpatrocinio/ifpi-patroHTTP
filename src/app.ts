@@ -10,12 +10,13 @@ export class App {
 
     // Iniciar aplicação
     public async run(): Promise<void> {
-        this.viewStack.push(new MainMenu(this.viewStack));
+        this.viewStack.push(new MainMenu());
         this.viewStack.push(new IntroView());
 
         // Execução normal da aplicação.
         while (!this.viewStack.isEmpty()) {
-            const view = this.viewStack.pop();
+            const view = this.viewStack.peek();
+            view.viewStack = this.viewStack;
             await view.show();
         }
 

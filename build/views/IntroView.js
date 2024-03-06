@@ -9,8 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { cursorTo } from "readline";
 import { clearView, getColumns, getRows, introText } from "./viewUtils.js";
-export class IntroView {
+import { View } from "./view.js";
+export class IntroView extends View {
     constructor() {
+        super(...arguments);
+        this.viewName = "Introdução";
         this.i = 0; // Frame atual
         this.canSkip = false;
     }
@@ -18,7 +21,7 @@ export class IntroView {
         return __awaiter(this, void 0, void 0, function* () {
             setTimeout(() => {
                 this.canSkip = true;
-            }, 3333);
+            }, 500);
             return new Promise((resolve) => {
                 let animationInterval = null;
                 const runAnimation = () => {
@@ -36,6 +39,7 @@ export class IntroView {
                         if (animationInterval) {
                             clearInterval(animationInterval);
                         }
+                        this.removeMeFromStack();
                         resolve();
                     }
                 };

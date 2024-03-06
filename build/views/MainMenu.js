@@ -7,19 +7,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { clearView, showHeader, showText } from "./viewUtils.js";
+import { clearView, showText } from "./viewUtils.js";
 import { question } from "readline-sync";
 import { GetMethodView } from "./GetMethodView.js";
 import { FarewellView } from "./FarewellView.js";
-export class MainMenu {
-    constructor(viewStack) {
-        // Captura a referência da Stack de Views
-        this.viewStack = viewStack;
+import { View } from "./view.js";
+import { ImageDownloadView } from "./ImageDownloadView.js";
+export class MainMenu extends View {
+    constructor() {
+        super(...arguments);
+        this.viewName = "Menu Principal";
     }
     show() {
         return __awaiter(this, void 0, void 0, function* () {
             clearView();
-            showHeader("Menu Principal");
+            this.showHeader();
             showText("1 - Requisição GET");
             showText("2 - Fazer download de imagem");
             showText("3 - Mostrar links de página");
@@ -44,6 +46,7 @@ export class MainMenu {
                     break;
                 case 2:
                     console.log("Fazer download de imagem");
+                    this.viewStack.push(new ImageDownloadView());
                     break;
                 case 3:
                     console.log("Mostrar links de página");

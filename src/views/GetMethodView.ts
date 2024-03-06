@@ -4,15 +4,14 @@ import { clearView, enterToContinue, horizontalLine, showCenteredText, showText 
 import { question } from "readline-sync";
 import { testGot } from "../utils/httpUtils.js";
 
-export class GetMethodView implements View {
+export class GetMethodView extends View {
+    public viewName = "Requisição GET";
     private canSkip: boolean = false;
 
     public async show(): Promise<void> {
         clearView();
         console.log();
-        horizontalLine();
-        showCenteredText("Requisição GET");
-        horizontalLine();
+        this.showHeader()
 
         return new Promise(async (resolve) => {
             showText("Insira a URL que deseja consultar.");
@@ -27,6 +26,7 @@ export class GetMethodView implements View {
             await testGot(url);
 
             enterToContinue();
+            this.removeMeFromStack();
             resolve();
         });
     }

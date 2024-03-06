@@ -1,8 +1,9 @@
 import { cursorTo } from "readline";
-import { clearView, getColumns, getRows, introText } from "./viewUtils.js";
+import { clearView, getColumns, getRows, introText, showCenteredText } from "./viewUtils.js";
 import { View } from "./view.js";
 
-export class IntroView implements View {
+export class IntroView extends View {
+    public viewName: string = "Introdução";
     private i: number = 0;  // Frame atual
     private canSkip: boolean = false;
 
@@ -10,7 +11,7 @@ export class IntroView implements View {
 
         setTimeout( ()=> {
             this.canSkip = true;
-        }, 3333);
+        }, 500);
 
         return new Promise((resolve) => {
             let animationInterval: NodeJS.Timeout | null = null;
@@ -32,6 +33,7 @@ export class IntroView implements View {
                     if (animationInterval) {
                         clearInterval(animationInterval);
                     }
+                    this.removeMeFromStack();
                     resolve();
                 }
             }
