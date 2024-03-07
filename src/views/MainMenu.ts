@@ -7,6 +7,7 @@ import { Stack } from "../utils/stack.js";
 import { View } from "./view.js";
 import { ImageDownloadView } from "./ImageDownloadView.js";
 import { getNumberInput } from "../utils/input.js";
+import { ShowImagesView } from "./ShowImagesView.js";
 
 export class MainMenu extends View {
     viewName = "Menu Principal";
@@ -18,10 +19,11 @@ export class MainMenu extends View {
         showText("2 - Fazer download de imagem");
         showText("3 - Mostrar links de página");
         showText("4 - Pesquisar palavras na página");
+        showText("5 - Exibir imagens baixadas.");
         showText("0 - Sair");
 
         let option = -1;
-        while (option < 0 || option > 4) {
+        while (option < 0 || option > 5) {
             option = getNumberInput();
             process.stdout.moveCursor(0, -1);
         }
@@ -38,6 +40,10 @@ export class MainMenu extends View {
                 break;
             case 4:
                 console.log("Pesquisar palavras na página");
+                break;
+            case 5:
+                console.log("Exibir imagens baixadas.");
+                this.viewStack.push(new ShowImagesView());
                 break;
             case 0:
                 console.log()
