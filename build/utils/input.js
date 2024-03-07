@@ -9,8 +9,19 @@ export function getNumberInput(label = "Numero") {
     let input = "";
     while (input === "") {
         input = question("");
-        process.stdout.moveCursor(9, -1);
+        process.stdout.moveCursor(label.length + 3, -1);
     }
     console.log();
     return Number(input);
+}
+export function getTextInput(label = "Texto") {
+    showText(label + ": ", 1);
+    process.stdout.moveCursor(label.length + 3, -1);
+    let input = "";
+    while (input === "") {
+        input = question("");
+        process.stdout.moveCursor(label.length + 3, -1);
+    }
+    console.log();
+    return input;
 }

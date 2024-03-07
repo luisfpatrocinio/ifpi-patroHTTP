@@ -41,7 +41,7 @@ export class IntroView extends View {
                         if (animationInterval) {
                             clearInterval(animationInterval);
                         }
-                        this.removeMeFromStack();
+                        this.removeTopFromStack();
                         this.viewStack.push(new MainMenu());
                         resolve();
                     }

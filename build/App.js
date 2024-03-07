@@ -14,6 +14,7 @@ export class App {
     constructor() {
         // Stack de funções
         this.viewStack = new Stack();
+        // this.viewStack.push(new IntroView());
         this.viewStack.push(new IntroView());
     }
     // Iniciar aplicação

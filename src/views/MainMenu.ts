@@ -7,7 +7,7 @@ import { Stack } from "../utils/stack.js";
 import { View } from "./view.js";
 import { ImageDownloadView } from "./ImageDownloadView.js";
 import { getNumberInput } from "../utils/input.js";
-import { ShowImagesView } from "./ShowImagesView.js";
+import { ImagesListView } from "./ImagesListView.js";
 
 export class MainMenu extends View {
     viewName = "Menu Principal";
@@ -43,7 +43,7 @@ export class MainMenu extends View {
                 break;
             case 5:
                 console.log("Exibir imagens baixadas.");
-                this.viewStack.push(new ShowImagesView());
+                this.viewStack.push(new ImagesListView());
                 break;
             case 0:
                 console.log()

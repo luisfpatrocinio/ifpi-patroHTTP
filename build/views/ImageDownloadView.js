@@ -54,7 +54,7 @@ export class ImageDownloadView extends View {
                 // ImageToAscii("./Downloaded Images/" + "image.png", (err: any, converted: any) => {
                 //     console.log(err || converted);
                 // })
-                this.removeMeFromStack();
+                this.removeTopFromStack();
                 resolve();
             }));
         });

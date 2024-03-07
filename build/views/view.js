@@ -18,7 +18,7 @@ export class View {
             throw new Error("Método não implementado.");
         });
     }
-    removeMeFromStack() {
+    removeTopFromStack() {
         this.viewStack.pop();
     }
     showHeader() {

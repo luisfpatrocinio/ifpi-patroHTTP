@@ -51,7 +51,7 @@ export class ImageDownloadView extends View {
             //     console.log(err || converted);
             // })
 
-            this.removeMeFromStack();
+            this.removeTopFromStack();
             resolve();
         });
         

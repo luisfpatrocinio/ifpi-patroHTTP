@@ -25,6 +25,6 @@ export class GetMethodView extends View {
         await testGot(url);
 
         enterToContinue();
-        this.removeMeFromStack();
+        this.removeTopFromStack();
     }
 }

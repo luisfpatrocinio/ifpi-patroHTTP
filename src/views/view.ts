@@ -9,7 +9,7 @@ export abstract class View {
         throw new Error("Método não implementado.");
     }
 
-    public removeMeFromStack(): void {
+    public removeTopFromStack(): void {
         this.viewStack.pop();
     }
 

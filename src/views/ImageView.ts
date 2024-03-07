@@ -1,35 +1,37 @@
-import { View } from "./view.js";
 import fs from "fs";
 import ims from 'image-to-ascii'
-import { clearView, enterToContinue, getColumns, getRows } from "./viewUtils.js";
+import { View } from "./view.js";
+import { clearView, enterToContinue, getColumns } from "./viewUtils.js";
 
-export class ShowImagesView extends View {
+export class ImageView extends View {
     public viewName: string = "Exibição de Imagem";
-    public imageTest = fs.readFileSync("./Downloaded Images/mario.jpg");
+    public imageToShow: string;
+
+    constructor(public image: string) {
+        super();
+        this.imageToShow = image;
+    }  
 
     public async show(): Promise<void> {
-        // Visualizar imagem em ascii
-
         clearView();
         this.showHeader();
-
-        this.imageTest = fs.readFileSync("./Downloaded Images/mario.jpg");
+        
+        const image = fs.readFileSync("./Downloaded Images/" + this.imageToShow);
 
         // Checar se a imagem existe
-        if (!this.imageTest) {
+        if (!image) {
             console.log("Imagem não encontrada.");
             enterToContinue();
-            this.removeMeFromStack();
+            this.removeTopFromStack();
             return;
         }
 
         try {
             const converted = await new Promise((resolve, reject) => {
-            ims(this.imageTest, {
+            ims(image, {
                 colored: true,
                 size: {
-                    width: 24,
-                    height: 12
+                    width: getColumns() / 2
                 }
             }, (err: any, converted: any) => {
                 if (err) reject(err);
@@ -42,6 +44,6 @@ export class ShowImagesView extends View {
         }
 
         enterToContinue();
-        this.removeMeFromStack();
+        this.removeTopFromStack();
     }
 }

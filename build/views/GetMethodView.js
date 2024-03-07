@@ -32,7 +32,7 @@ export class GetMethodView extends View {
             console.log();
             yield testGot(url);
             enterToContinue();
-            this.removeMeFromStack();
+            this.removeTopFromStack();
         });
     }
 }

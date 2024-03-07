@@ -1,6 +1,7 @@
 import { Stack } from "./utils/stack.js";
 import { IntroView } from "./views/IntroView.js";
 import { MainMenu } from "./views/MainMenu.js";
+import { ImagesListView } from "./views/ImagesListView.js";
 import { View } from "./views/view.js";
 import { clearTerminal, enterToContinue } from "./views/viewUtils.js";
 
@@ -9,6 +10,7 @@ export class App {
     private viewStack: Stack<View> = new Stack<View>();
     
     constructor() {
+        // this.viewStack.push(new IntroView());
         this.viewStack.push(new IntroView());
     }
 

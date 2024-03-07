@@ -96,7 +96,7 @@ export function getRows(): number {
 }
 
 export function enterToContinue() {
-    console.log();
+    // console.log();
     showText(chalk.inverse("[ENTER]"), getColumns()/2 - 4);
     let txt = question("", {hideEchoBack: true, mask: ''});
 }
@@ -148,4 +148,29 @@ export function showMiniHeader(text: string) {
     horizontalLine();
     showCenteredText(text);
     horizontalLine();
+}
+
+export function showTextInColumns(textArray: Array<string>, columns: number = 2) {
+    let screenWidth = getColumns();
+
+    let _border = 2;
+    let columnWidth = Math.floor((screenWidth - _border * 2) / columns);
+    // console.log("Tamanho da coluna: ", columnWidth)
+    let columnHeight = Math.ceil(textArray.length / columns);
+
+    // Adiciona todos os textos em uma única string
+    for (let i = 0; i < textArray.length; i++) {
+        let text = textArray[i];
+
+        // Calcular a posição do texto
+        let column = Math.floor(i / columnHeight);
+        let line = i % columnHeight;
+    
+        let x = _border + column * columnWidth;
+        let y = line;
+
+        process.stdout.moveCursor(0, -i + line);
+        showText(text, x);
+    }
+    console.log();    
 }
