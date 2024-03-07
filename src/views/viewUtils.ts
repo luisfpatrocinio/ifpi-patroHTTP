@@ -157,10 +157,11 @@ export function showTextInColumns(textArray: Array<string>, columns: number = 2)
     let columnWidth = Math.floor((screenWidth - _border * 2) / columns);
     // console.log("Tamanho da coluna: ", columnWidth)
     let columnHeight = Math.ceil(textArray.length / columns);
+    let startY = 5;
 
-    // Adiciona todos os textos em uma única string
+    // Adiciona todos os textos em uma única string]
     for (let i = 0; i < textArray.length; i++) {
-        let text = textArray[i];
+        let text = `${i} - ${textArray[i]}`
 
         // Calcular a posição do texto
         let column = Math.floor(i / columnHeight);
@@ -169,8 +170,7 @@ export function showTextInColumns(textArray: Array<string>, columns: number = 2)
         let x = _border + column * columnWidth;
         let y = line;
 
-        process.stdout.moveCursor(0, -i + line);
+        process.stdout.cursorTo(x, startY + y);
         showText(text, x);
     }
-    console.log();    
 }

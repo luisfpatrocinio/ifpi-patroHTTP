@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import fs from "fs";
 import ims from 'image-to-ascii';
 import { View } from "./view.js";
-import { clearView, enterToContinue, getColumns } from "./viewUtils.js";
+import { clearView, enterToContinue, getRows } from "./viewUtils.js";
 export class ImageView extends View {
     constructor(image) {
         super();
@@ -35,7 +35,7 @@ export class ImageView extends View {
                     ims(image, {
                         colored: true,
                         size: {
-                            width: getColumns() / 2
+                            height: getRows() - 8
                         }
                     }, (err, converted) => {
                         if (err)

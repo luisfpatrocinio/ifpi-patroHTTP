@@ -1,7 +1,7 @@
 import fs from "fs";
 import ims from 'image-to-ascii'
 import { View } from "./view.js";
-import { clearView, enterToContinue, getColumns } from "./viewUtils.js";
+import { clearView, enterToContinue, getColumns, getRows } from "./viewUtils.js";
 
 export class ImageView extends View {
     public viewName: string = "Exibição de Imagem";
@@ -31,7 +31,7 @@ export class ImageView extends View {
             ims(image, {
                 colored: true,
                 size: {
-                    width: getColumns() / 2
+                    height: getRows() - 8
                 }
             }, (err: any, converted: any) => {
                 if (err) reject(err);
