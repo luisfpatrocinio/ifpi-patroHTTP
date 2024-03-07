@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import fs from "fs";
 import ims from 'image-to-ascii';
 import { View } from "./view.js";
-import { clearView, enterToContinue, getRows } from "./viewUtils.js";
+import { clearView, enterToContinue, getColumns, getRows, showText } from "./viewUtils.js";
+import chalk from "chalk";
 export class ImageView extends View {
     constructor(image) {
         super();
@@ -43,7 +44,7 @@ export class ImageView extends View {
                         resolve(converted);
                     });
                 });
-                console.log(converted);
+                drawImageString(converted);
             }
             catch (err) {
                 console.error("Erro ao converter a imagem para ASCII: ", err);
@@ -52,4 +53,17 @@ export class ImageView extends View {
             this.removeTopFromStack();
         });
     }
+}
+function drawImageString(imageString) {
+    // Desenhar linha por linha
+    if (typeof imageString !== "string") {
+        showText("Erro ao converter a imagem para ASCII.");
+        return;
+    }
+    const lines = imageString.split("\n");
+    lines.forEach((line) => {
+        let pos = Math.floor((getColumns() - lines.length) / 2);
+        // let spacesString = " ".repeat(pos);
+        showText(chalk.bgHex("#000000")(line), pos);
+    });
 }

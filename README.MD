@@ -14,12 +14,12 @@ Alguns sites recomendados para utilizar e testar requisições HTTP:
 - [HTTPBin](https://httpbin.org/anything): Um serviço que retorna informações úteis sobre as requisições HTTP enviadas para ele, útil para testar diferentes tipos de requisições.
 
 ## Bibliotecas utilizadas
-- **[Got](https://www.npmjs.com/package/got)**: Uma biblioteca JavaScript para fazer requisições HTTP, conhecida por sua simplicidade e eficiência. 
-- **[Chalk](https://github.com/chalk/chalk)**: Uma biblioteca para estilizar a saída do terminal com cores e estilos, tornando-a mais legível e atraente.
+- **[Got](https://github.com/sindresorhus/got)**: Uma biblioteca para requisições HTTP eficientes.
+- **[Chalk](https://github.com/chalk/chalk)**: Estilização do terminal com cores e estilos.
+- **[Image-To-Ascii](https://github.com/IonicaBizau/image-to-ascii)**: Conversão de imagens para arte ASCII no terminal.
 
 ## Sobre o Projeto
 Este projeto foi desenvolvido como parte da disciplina de Programação para Internet do curso de Tecnólogo em Análise e Desenvolvimento de Sistemas do Instituto Federal de Educação, Ciência e Tecnologia do Piauí (IFPI), sob a orientação do professor Ely Miranda.
-
 
 ## Autor
 Desenvolvido por [Luis F. Patrocinio](https://github.com/luisfpatrocinio).
