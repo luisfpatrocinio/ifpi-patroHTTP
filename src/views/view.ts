@@ -16,7 +16,6 @@ export abstract class View {
     public showHeader() : void {
         horizontalLine();
         showCenteredText(this.viewName);
-        showCenteredText("Tamanho da ViewStack: " + String(this.viewStack.size()));
         horizontalLine();
     }
 }

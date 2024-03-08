@@ -1,7 +1,7 @@
 import fs from "fs";
 import ims from 'image-to-ascii'
 import { View } from "./view.js";
-import { clearView, enterToContinue, getColumns, getRows, showText } from "./viewUtils.js";
+import { clearView, enterToContinue, getColumns, getRows, showCenteredText, showText } from "./viewUtils.js";
 import chalk from "chalk";
 
 export class ImageView extends View {
@@ -40,6 +40,7 @@ export class ImageView extends View {
             });
             });
             drawImageString(converted);
+            showCenteredText(this.imageToShow);
         } catch (err) {
             console.error("Erro ao converter a imagem para ASCII: ", err);
         }

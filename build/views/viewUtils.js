@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import { cursorTo } from "readline";
 import { question } from 'readline-sync';
 import { getColor, setColor } from '../main.js';
+export const DEFAULT_COLOR = "#5adbfa";
 // Paleta utilizada: https://lospec.com/palette-list/sage57
 export function clearTerminal() {
     // Limpar terminal.
@@ -99,7 +100,7 @@ export function introText(step) {
     setColor(colors[(step + 2) % N]);
     showText(chalk.bold("8     `Y88  Y8P 8    `Y8P' 8   8   8     8   8"), pos);
     console.log();
-    setColor("#5adbfa");
+    setColor(DEFAULT_COLOR);
     showCenteredText("Exercício 01 - Requisições HTTP");
     console.log();
     showCenteredText("Desenvolvido por Luis Felipe Patrocinio");

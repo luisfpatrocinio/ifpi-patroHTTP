@@ -8,6 +8,7 @@ import { View } from "./view.js";
 import { ImageDownloadView } from "./ImageDownloadView.js";
 import { getNumberInput } from "../utils/input.js";
 import { ImagesListView } from "./ImagesListView.js";
+import { ParseLinksView } from "./ParseLinksView.js";
 
 export class MainMenu extends View {
     viewName = "Menu Principal";
@@ -36,7 +37,7 @@ export class MainMenu extends View {
                 this.viewStack.push(new ImageDownloadView());
                 break;
             case 3:
-                console.log("Mostrar links de página");
+                this.viewStack.push(new ParseLinksView());
                 break;
             case 4:
                 console.log("Pesquisar palavras na página");

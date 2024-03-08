@@ -24,7 +24,6 @@ export class View {
     showHeader() {
         horizontalLine();
         showCenteredText(this.viewName);
-        showCenteredText("Tamanho da ViewStack: " + String(this.viewStack.size()));
         horizontalLine();
     }
 }

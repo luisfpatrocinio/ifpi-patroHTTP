@@ -17,6 +17,7 @@ Alguns sites recomendados para utilizar e testar requisições HTTP:
 - **[Got](https://github.com/sindresorhus/got)**: Uma biblioteca para requisições HTTP eficientes.
 - **[Chalk](https://github.com/chalk/chalk)**: Estilização do terminal com cores e estilos.
 - **[Image-To-Ascii](https://github.com/IonicaBizau/image-to-ascii)**: Conversão de imagens para arte ASCII no terminal.
+- **[X-Ray](https://github.com/matthewmueller/x-ray)**: Ferramenta de web scraping para Node.js que permite extrair dados de sites da web de forma rápida e fácil.
 
 ## Sobre o Projeto
 Este projeto foi desenvolvido como parte da disciplina de Programação para Internet do curso de Tecnólogo em Análise e Desenvolvimento de Sistemas do Instituto Federal de Educação, Ciência e Tecnologia do Piauí (IFPI), sob a orientação do professor Ely Miranda.
