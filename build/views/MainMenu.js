@@ -15,6 +15,7 @@ import { ImageDownloadView } from "./ImageDownloadView.js";
 import { getNumberInput } from "../utils/input.js";
 import { ImagesListView } from "./ImagesListView.js";
 import { ParseLinksView } from "./ParseLinksView.js";
+import { SearchWordsView } from "./SearchWordsView.js";
 export class MainMenu extends View {
     constructor() {
         super(...arguments);
@@ -47,6 +48,7 @@ export class MainMenu extends View {
                     break;
                 case 4:
                     console.log("Pesquisar palavras na página");
+                    this.viewStack.push(new SearchWordsView());
                     break;
                 case 5:
                     console.log("Exibir imagens baixadas.");

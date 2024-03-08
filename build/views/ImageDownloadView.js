@@ -40,10 +40,10 @@ export class ImageDownloadView extends View {
                     desiredUrl = "http://" + desiredUrl;
                 }
                 // Checar se termina com .jpg ou .png
-                if (!desiredUrl.endsWith(".jpg") && !desiredUrl.endsWith(".png")) {
-                    console.log("URL inválida. A URL deve terminar com .jpg ou .png");
-                    return resolve();
-                }
+                // if (!desiredUrl.endsWith(".jpg") && !desiredUrl.endsWith(".png")) {
+                //     console.log("URL inválida. A URL deve terminar com .jpg ou .png");
+                //     return resolve();
+                // }
                 // // Fazer download da imagem
                 yield downloadImage(desiredUrl);
                 // Mostrar imagem usando image-to-ascii

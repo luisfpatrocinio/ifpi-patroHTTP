@@ -1,0 +1,2 @@
+• Exceções ao capturar links
+• Cancelar enquanto insere input
