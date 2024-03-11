@@ -1,5 +1,5 @@
-import { got, Response } from "got";
-import { clearView, enterToContinue, getColumns, horizontalLine, showCenteredText, showMiniHeader, showText } from "../views/viewUtils.js";
+import { got, RequestError, Response } from "got";
+import { clearView, enterToContinue, getColumns, horizontalLine, showCenteredText, showError, showMiniHeader, showText } from "../views/viewUtils.js";
 import { IncomingHttpHeaders } from "http";
 import chalk from "chalk";
 
@@ -44,7 +44,11 @@ export async function testGot(testURL: string) {
         showResponseBody(response);
         horizontalLine();
     } catch (error: any) {
-        console.error('Error:', error.message);
+        // console.error('Error:', error.message);
+        if (error instanceof RequestError) {
+            throw new Error(`Erro de requisição: ${error.message}`);
+        }
+        showError(error);
         enterToContinue();
     }
 }

@@ -136,3 +136,9 @@ export function showTextInColumns(textArray, columns = 2) {
         showText(text, x);
     }
 }
+export function showError(error) {
+    let columns = getColumns();
+    let spaces = (columns - "ERRO".length) / 2;
+    showText(chalk.red("ERRO"), spaces);
+    showText(chalk.red(`${error.name}: ${error.message}`));
+}

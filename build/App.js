@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { Stack } from "./utils/stack.js";
 import { IntroView } from "./views/IntroView.js";
-import { clearTerminal } from "./views/viewUtils.js";
+import { clearTerminal, enterToContinue, showError } from "./views/viewUtils.js";
 export class App {
     constructor() {
         // Stack de funções
@@ -24,7 +24,14 @@ export class App {
             while (!this.viewStack.isEmpty()) {
                 const view = this.viewStack.peek();
                 view.viewStack = this.viewStack;
-                yield view.show();
+                try {
+                    yield view.show();
+                }
+                catch (error) {
+                    showError(error);
+                    enterToContinue();
+                    this.viewStack.pop();
+                }
             }
             // Limpar terminal
             clearTerminal();

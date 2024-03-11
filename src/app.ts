@@ -3,7 +3,7 @@ import { IntroView } from "./views/IntroView.js";
 import { MainMenu } from "./views/MainMenu.js";
 import { ImagesListView } from "./views/ImagesListView.js";
 import { View } from "./views/view.js";
-import { clearTerminal, enterToContinue } from "./views/viewUtils.js";
+import { clearTerminal, enterToContinue, showError } from "./views/viewUtils.js";
 
 export class App {
     // Stack de funções
@@ -20,7 +20,13 @@ export class App {
         while (!this.viewStack.isEmpty()) {
             const view = this.viewStack.peek();
             view.viewStack = this.viewStack;
-            await view.show();
+            try {
+                await view.show();
+            } catch (error: any) {
+                showError(error);
+                enterToContinue();
+                this.viewStack.pop();
+            }
         }
 
         // Limpar terminal

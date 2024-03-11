@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { got } from "got";
-import { clearView, enterToContinue, getColumns, horizontalLine, showCenteredText, showMiniHeader, showText } from "../views/viewUtils.js";
+import { got, RequestError } from "got";
+import { clearView, enterToContinue, getColumns, horizontalLine, showCenteredText, showError, showMiniHeader, showText } from "../views/viewUtils.js";
 import chalk from "chalk";
 export function testGot(testURL) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -47,7 +47,11 @@ export function testGot(testURL) {
             horizontalLine();
         }
         catch (error) {
-            console.error('Error:', error.message);
+            // console.error('Error:', error.message);
+            if (error instanceof RequestError) {
+                throw new Error(`Erro de requisição: ${error.message}`);
+            }
+            showError(error);
             enterToContinue();
         }
     });

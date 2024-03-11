@@ -176,3 +176,10 @@ export function showTextInColumns(textArray: Array<string>, columns: number = 2)
         showText(text, x);
     }
 }
+
+export function showError(error: Error) {
+    let columns = getColumns();
+    let spaces = (columns - "ERRO".length) / 2;
+    showText(chalk.red("ERRO"), spaces);
+    showText(chalk.red(`${error.name}: ${error.message}`));
+}
